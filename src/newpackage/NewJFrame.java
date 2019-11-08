@@ -124,7 +124,7 @@ public class NewJFrame extends javax.swing.JFrame {
         );
 
         ChartPanel chartPanelPressure = new ChartPanel(chartPressure);
-        chartPanelTemp.setPreferredSize(new java.awt.Dimension(300, 300));
+        chartPanelPressure.setPreferredSize(new java.awt.Dimension(300, 300));
 
         pressureGraph.add(chartPanelPressure);
 
@@ -256,13 +256,14 @@ public class NewJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CanSat GroundStation");
+        setName("CanSat GroundStation"); // NOI18N
         setSize(new java.awt.Dimension(1000, 1000));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         teamNameLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         teamNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         teamNameLabel.setText("FabSat Ground Station");
-        getContentPane().add(teamNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
+        getContentPane().add(teamNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel4.setText("Team ID:");
@@ -337,19 +338,21 @@ public class NewJFrame extends javax.swing.JFrame {
         getContentPane().add(softStateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, -1, -1));
 
         altitudeGraph.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(altitudeGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 300, 230));
+        getContentPane().add(altitudeGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 300, 230));
 
         tempGraph.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(tempGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 40, -1, -1));
+        getContentPane().add(tempGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 300, 230));
 
         voltageGraph.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(voltageGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 40, -1, -1));
+        getContentPane().add(voltageGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 60, 300, 230));
 
         pressureGraph.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(pressureGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, -1, -1));
+        getContentPane().add(pressureGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, 300, 230));
 
         airSpeedGraph.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(airSpeedGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 310, -1, -1));
+        getContentPane().add(airSpeedGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, 300, 230));
+
+        getAccessibleContext().setAccessibleName("CanSat_GroundStation");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
