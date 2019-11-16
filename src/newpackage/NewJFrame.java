@@ -248,18 +248,19 @@ public class NewJFrame extends javax.swing.JFrame {
         voltageLabel = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         gpsTimeLabel = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        airSpeedLabel = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         softStateLabel = new javax.swing.JLabel();
         altitudeGraph = new javax.swing.JPanel();
         tempGraph = new javax.swing.JPanel();
         voltageGraph = new javax.swing.JPanel();
         pressureGraph = new javax.swing.JPanel();
-        airSpeedGraph = new javax.swing.JPanel();
         portListo = new javax.swing.JComboBox<>();
         startButton = new javax.swing.JButton();
         scanButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CanSat GroundStation");
@@ -328,14 +329,6 @@ public class NewJFrame extends javax.swing.JFrame {
         gpsTimeLabel.setText("N/A");
         getContentPane().add(gpsTimeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
 
-        jLabel18.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel18.setText("Air Speed:");
-        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
-
-        airSpeedLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        airSpeedLabel.setText("N/A");
-        getContentPane().add(airSpeedLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
-
         jLabel20.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel20.setText("Softwear State: ");
         getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
@@ -356,9 +349,6 @@ public class NewJFrame extends javax.swing.JFrame {
         pressureGraph.setLayout(new java.awt.BorderLayout());
         getContentPane().add(pressureGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, 300, 230));
 
-        airSpeedGraph.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(airSpeedGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 330, 300, 230));
-
         getContentPane().add(portListo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 270, -1));
 
         startButton.setText("Start");
@@ -376,6 +366,18 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(scanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 270, 40));
+
+        jLabel1.setText("m");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, -1, -1));
+
+        jLabel2.setText("*C");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, -1, -1));
+
+        jLabel3.setText("V");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, -1));
+
+        jLabel5.setText("Pa");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, -1, -1));
 
         getAccessibleContext().setAccessibleName("CanSat_GroundStation");
 
@@ -415,7 +417,7 @@ public class NewJFrame extends javax.swing.JFrame {
             //--for file setting
             fw = new FileWriter("Data.csv", true);
             bw = new BufferedWriter(fw);
-            String s = "TeamID,MissionTime,Altitude,Pressure,Temp,Voltage,GPSTIme,AirSpeed,SoftState";
+            String s = "TeamID,MissionTime,Altitude,Pressure,Temp,Voltage,GPSTIme,SoftState";
             bw.write(s);
             bw.write("\n");
 
@@ -512,28 +514,7 @@ public class NewJFrame extends javax.swing.JFrame {
         pressureGraph.setVisible(true);
 
 //--PressureGraph
-//AirSpeedGraph
-        XYSeries seriesAirSpeed = new XYSeries("AirSpeed");
-        XYSeriesCollection datasetAirSpeed = new XYSeriesCollection(seriesAirSpeed);
-        JFreeChart chartAirSpeed = ChartFactory.createXYLineChart(
-                "AirSpeed",
-                "Time",
-                "AirSpeed",
-                datasetAirSpeed
-        );
 
-        ChartPanel chartPanelAirSpeed = new ChartPanel(chartAirSpeed);
-        chartPanelAirSpeed.setPreferredSize(new java.awt.Dimension(300, 300));
-
-        airSpeedGraph.add(chartPanelAirSpeed);
-
-        airSpeedGraph.validate();
-
-        chartPanelAirSpeed.setVisible(true);
-
-        airSpeedGraph.setVisible(true);
-
-//--AirSpeedGraph
        ArduinoSerial sensorData = new ArduinoSerial(myPort);
         Thread t = new Thread() {
             @Override
@@ -565,20 +546,17 @@ public class NewJFrame extends javax.swing.JFrame {
                         tempLabel.setText(dataArray[4]);
                         voltageLabel.setText(dataArray[5]);
                         gpsTimeLabel.setText(dataArray[6]);
-                        airSpeedLabel.setText(dataArray[7]);
                         softStateLabel.setText(dataArray[8]);
                         //-------
                         seriesAl.add(Integer.parseInt(dataArray[2]), Integer.parseInt(dataArray[3]));
                         seriesTemp.add(Integer.parseInt(dataArray[2]), Integer.parseInt(dataArray[3]));
                         seriesPressure.add(Integer.parseInt(dataArray[2]), Integer.parseInt(dataArray[3]));
-                        seriesAirSpeed.add(Integer.parseInt(dataArray[2]), Integer.parseInt(dataArray[3]));
                         seriesVolt.add(Integer.parseInt(dataArray[2]), Integer.parseInt(dataArray[3]));
 
                         altitudeGraph.repaint();
                         tempGraph.repaint();
                         voltageGraph.repaint();
                         pressureGraph.repaint();
-                        airSpeedGraph.repaint();
 
                         //-------
                     } catch (Exception e) {
@@ -635,18 +613,19 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel airSpeedGraph;
-    private javax.swing.JLabel airSpeedLabel;
     private javax.swing.JPanel altitudeGraph;
     private javax.swing.JLabel altitudeLabel;
     private javax.swing.JLabel gpsTimeLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel missionTimeLabel;
